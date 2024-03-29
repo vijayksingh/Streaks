@@ -13,9 +13,21 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "index",
-      "title": "Show Streak",
-      "description": "A streak / habit management system.",
+      "name": "show-habits",
+      "title": "Show Habits",
+      "description": "Display a list of your habits",
+      "mode": "view"
+    },
+    {
+      "name": "create-habit",
+      "title": "Create Habit",
+      "description": "Create a new habit",
+      "mode": "view"
+    },
+    {
+      "name": "delete-habit",
+      "title": "Delete Habit",
+      "description": "Delete a habit",
       "mode": "view"
     }
   ],
