@@ -1,4 +1,4 @@
-import { Action, ActionPanel, Form, LocalStorage, popToRoot } from "@raycast/api";
+import { Action, ActionPanel, Form, LocalStorage, Toast, popToRoot, showToast } from "@raycast/api";
 import { STREAK_STORAGE_KEY } from "./constants";
 import { Streak } from "./types";
 
@@ -16,9 +16,20 @@ export default function CreateHabitCommand() {
 }
 
 function CreateStreakForm(props: { onCreateStreak: (streak: Streak) => void }) {
-  async function handleSubmit(values: { name: string; weekendMode: boolean }) {
+  async function handleSubmit(values: { name: string; weekendMode: boolean; emoji: string }) {
+    // Check if name or emoji is missing
+    if (!values.name.trim()) {
+      await showToast(Toast.Style.Failure, "Error", "Habit Name is required.");
+      return;
+    }
+    if (!values.emoji.trim()) {
+      await showToast(Toast.Style.Failure, "Error", "Emoji for habit is required.");
+      return;
+    }
+
     const newStreak: Streak = {
       id: Math.random().toString(36).substring(7),
+      emoji: values.emoji || "✔",
       name: values.name,
       startDate: new Date().toISOString(),
       markedDates: [],
@@ -37,6 +48,7 @@ function CreateStreakForm(props: { onCreateStreak: (streak: Streak) => void }) {
       }
     >
       <Form.TextField id="name" title="Habit Name" placeholder="Enter habit name" />
+      <Form.TextField id="emoji" title="Emoji" placeholder="Use : to toggle emoji picker 💡" />
       <Form.Checkbox id="weekendMode" label="Enable Weekend Mode" />
     </Form>
   );

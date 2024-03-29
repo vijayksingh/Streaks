@@ -5,6 +5,9 @@ export function renderWeekView(streak: Streak) {
   const today = new Date();
   const startOfWeek = new Date(today);
   startOfWeek.setDate(today.getDate() - today.getDay() + 1); // Start from Monday
+  const currentWeekofYear = Math.ceil(
+    (new Date().getTime() - new Date(new Date().getFullYear(), 0, 1).getTime()) / (7 * 24 * 60 * 60 * 1000),
+  );
 
   let weekView = "";
   for (let i = 0; i < 7; i++) {
@@ -13,13 +16,13 @@ export function renderWeekView(streak: Streak) {
     const formattedDate = currentDate.toISOString().split("T")[0];
 
     if (markedDates.includes(formattedDate)) {
-      weekView += "✅";
+      weekView += "✅ ";
     } else {
-      weekView += "⬜";
+      weekView += "⬜ ";
     }
   }
 
-  return weekView;
+  return `Week ${currentWeekofYear}:  ${weekView}`;
 }
 
 export function renderStreakProgress(streak: Streak) {

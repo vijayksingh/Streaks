@@ -47,8 +47,8 @@ export default function ShowHabitsCommand() {
               source: "checkbox-icon.png",
               tintColor: streak.markedDates.includes(new Date().toISOString().split("T")[0]) ? "green" : undefined,
             }}
-            title={streak.name}
-            subtitle={renderWeekView(streak)}
+            title={`${streak.emoji} ${streak.name}`}
+            accessories={[{ text: renderWeekView(streak) }]}
             actions={
               <ActionPanel>
                 <Action.Push title="View Details" target={<StreakDetail streak={streak} />} />
